@@ -1,5 +1,30 @@
 function distinctPairSum(arr, k) {
-  // type your code here
+  const hash = {};
+  const newArr = [];
+
+  for (let i=0; i<arr.length; i++) {
+    if(hash[arr[i]]) {
+      hash[arr[i]] += 1;
+    }
+    else {
+      hash[arr[i]] = 1;
+    }
+  }
+
+  for (const num in hash) {
+    const target = k - num;
+    if (hash[target]) {
+      if (num == target) {
+        if (hash[target] < 2) {
+          continue;
+        }
+      }
+      newArr.push([parseInt(num), target])
+      delete hash[num];
+      delete hash[target];
+    }
+  }
+  return newArr;
 }
 
 if (require.main === module) {
